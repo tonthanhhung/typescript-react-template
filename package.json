@@ -5,8 +5,9 @@
   "author": "Hung Ton <tonthanhhung90@gmail.com>",
   "license": "BSD-3-Clause",
   "scripts": {
-    "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html --out-dir=public"
+    "start": "NODE_ENV=development parcel ./src/index.html",
+    "build": "NODE_ENV=production parcel build ./src/index.html --out-dir=public",
+    "cc": "./src/tools/create-component.js"
   },
   "targets": {
     "browser": {
@@ -19,15 +20,15 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "lint-staged"
     }
   },
   "dependencies": {
     "@types/react-dom": "^16.9.1",
+    "classnames": "^2.2.6",
     "es6-promise": "^4.2.8",
     "parcel-bundler": "^1.12.3",
     "postcss-custom-properties": "^9.0.2",
-    "prettier": "^1.19.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "sass": "^1.23.0",
@@ -35,7 +36,23 @@
     "typescript": "^3.6.3"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.9",
+    "chalk": "^3.0.0",
+    "commander": "^4.0.1",
     "husky": "^3.1.0",
+    "lint-staged": ">=8",
+    "listr": "^0.14.3",
+    "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/src/**/*.{json,md,scss}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
